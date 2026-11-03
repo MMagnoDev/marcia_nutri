@@ -199,4 +199,41 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   }
+
+  // ==========================================
+  // 4. MOBILE ABOUT "READ MORE" TOGGLE
+  // ==========================================
+  const btnToggleAbout = document.getElementById('btnToggleAbout');
+  const aboutMobileCollapse = document.getElementById('aboutMobileCollapse');
+
+  if (btnToggleAbout && aboutMobileCollapse) {
+    btnToggleAbout.addEventListener('click', () => {
+      const isCollapsed = aboutMobileCollapse.classList.contains('collapsed');
+      const textSpan = btnToggleAbout.querySelector('.btn-read-more-text');
+
+      if (isCollapsed) {
+        aboutMobileCollapse.classList.remove('collapsed');
+        aboutMobileCollapse.classList.add('expanded');
+        btnToggleAbout.classList.add('is-expanded');
+        btnToggleAbout.setAttribute('aria-expanded', 'true');
+        if (textSpan) textSpan.textContent = 'Mostrar menos';
+      } else {
+        aboutMobileCollapse.classList.remove('expanded');
+        aboutMobileCollapse.classList.add('collapsed');
+        btnToggleAbout.classList.remove('is-expanded');
+        btnToggleAbout.setAttribute('aria-expanded', 'false');
+        if (textSpan) textSpan.textContent = 'Ler texto completo';
+
+        // Smooth scroll back to section top if user scrolled past
+        const sectionAbout = document.getElementById('quem-sou-eu');
+        if (sectionAbout) {
+          if (lenis) {
+            lenis.scrollTo(sectionAbout, { offset: -20, duration: 0.8 });
+          } else {
+            sectionAbout.scrollIntoView({ behavior: 'smooth' });
+          }
+        }
+      }
+    });
+  }
 });
